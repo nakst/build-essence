@@ -25,11 +25,6 @@ echo "apps/samples/converter.ini"                      >> bin/extra_applications
 echo "util/designer2.ini"                              >> bin/extra_applications.ini
 echo "ports/uxn/emulator.ini"                          >> bin/extra_applications.ini
 
-# Copy sample data.
-cp -r res/Sample\ Images root
-cp bin/noodle.rom root/Noodle.uxn
-cp res/A\ Study\ in\ Scarlet.txt root
-
 # Setup toolchain.
 ./start.sh get-source prefix https://github.com/nakst/build-gcc-x86_64-essence/releases/download/gcc-v11.1.0/out.tar.xz
 ./start.sh setup-pre-built-toolchain
@@ -42,6 +37,11 @@ cp res/A\ Study\ in\ Scarlet.txt root
 ./start.sh build-port ffmpeg  > /dev/null
 ./start.sh build-port uxn     > /dev/null
 ./start.sh build-port gcc     > /dev/null
+
+# Copy sample data.
+cp -r res/Sample\ Images root
+cp bin/noodle.rom root/Noodle.uxn
+cp res/A\ Study\ in\ Scarlet.txt root
 
 # Build the system.
 ./start.sh build-optimised
