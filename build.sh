@@ -1,24 +1,43 @@
 #!/bin/bash
-
 set -eux
 
-if [ ! -d "essence" ]; then
-	git clone --depth=1 https://gitlab.com/nakst/essence.git
-fi
+# TODO
+# Sample content
+# GCC, Mesa, ffmpeg, Uxn ports
 
+# Get the source
+git clone --depth=1 https://gitlab.com/nakst/essence.git
 cd essence
 COMMIT=`git log | head -n 1 | cut -b 8-14`
-mkdir -p bin
-echo accepted_license=1 >> bin/build_config.ini
-echo automated_build=1 >> bin/build_config.ini
-echo Flag.DEBUG_BUILD=0 >> bin/config.ini
+
+# Setup config files
+mkdir -p bin root
+cp -r res/Sample\ Images root
+echo "accepted_license=1"                              >> bin/build_config.ini
+echo "automated_build=1"                               >> bin/build_config.ini
+echo "Flag.DEBUG_BUILD=0"                              >> bin/config.ini
+echo "Flag.ENABLE_POSIX_SUBSYSTEM=1"                   >> bin/config.ini
+echo "General.wallpaper=0:/Sample Images/Abstract.jpg" >> bin/config.ini
+
+# Setup toolchain
 ./start.sh get-source prefix https://github.com/nakst/build-gcc-x86_64-essence/releases/download/gcc-v11.1.0/out.tar.xz
 ./start.sh setup-pre-built-toolchain
 ./start.sh build-optimised
+
+# Build ports
+./start.sh build-port nasm    > /dev/null
+./start.sh build-port busybox > /dev/null
+./start.sh build-port bochs   > /dev/null
+
+# Build the system
+./start.sh build-optimised
+
+# Compress result
 cd ..
 xz -z essence/bin/drive
 mv essence/bin/drive.xz .
 
+# Output for workflow
 echo "::set-output name=OUTPUT_BINARY::drive.xz"
 echo "::set-output name=RELEASE_NAME::essence-${COMMIT}"
 echo "::set-output name=COMMIT::${COMMIT}"
