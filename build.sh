@@ -18,12 +18,6 @@ echo "automated_build=1"                               >> bin/build_config.ini
 echo "Flag.DEBUG_BUILD=0"                              >> bin/config.ini
 echo "Flag.ENABLE_POSIX_SUBSYSTEM=1"                   >> bin/config.ini
 echo "General.wallpaper=0:/Sample Images/Abstract.jpg" >> bin/config.ini
-echo "apps/samples/list.ini"                           >> bin/extra_applications.ini
-echo "apps/samples/hello.ini"                          >> bin/extra_applications.ini
-echo "apps/samples/game_loop.ini"                      >> bin/extra_applications.ini
-echo "apps/samples/converter.ini"                      >> bin/extra_applications.ini
-echo "util/designer2.ini"                              >> bin/extra_applications.ini
-echo "ports/uxn/emulator.ini"                          >> bin/extra_applications.ini
 
 # Setup toolchain.
 ./start.sh get-source prefix https://github.com/nakst/build-gcc-x86_64-essence/releases/download/gcc-v11.1.0/out.tar.xz
@@ -40,6 +34,14 @@ cp -r res/Sample\ Images root
 cp bin/noodle.rom root/Noodle.uxn
 cp res/A\ Study\ in\ Scarlet.txt root
 cp res/Theme\ Source.dat root/Theme.designer
+
+# Enable extra applications.
+echo "apps/samples/list.ini"                           >> bin/extra_applications.ini
+echo "apps/samples/hello.ini"                          >> bin/extra_applications.ini
+echo "apps/samples/game_loop.ini"                      >> bin/extra_applications.ini
+echo "apps/samples/converter.ini"                      >> bin/extra_applications.ini
+echo "util/designer2.ini"                              >> bin/extra_applications.ini
+echo "ports/uxn/emulator.ini"                          >> bin/extra_applications.ini
 
 # Build the system.
 ./start.sh build-optimised
