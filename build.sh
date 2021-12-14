@@ -4,7 +4,7 @@ set -eux
 # TODO:
 # More sample content.
 # Identifying errors.
-# Mesa (and object viewer), Bochs ports (needs libstdc++).
+# Mesa (and object viewer), Bochs ports (needs libstdc++), ffmpeg, GCC.
 
 # Get the source.
 git clone --depth=1 https://gitlab.com/nakst/essence.git
@@ -33,15 +33,13 @@ echo "ports/uxn/emulator.ini"                          >> bin/extra_applications
 # Build ports.
 ./start.sh build-port nasm    > /dev/null
 ./start.sh build-port busybox > /dev/null
-./start.sh build-port mesa    > /dev/null
-./start.sh build-port ffmpeg  > /dev/null
 ./start.sh build-port uxn     > /dev/null
-./start.sh build-port gcc     > /dev/null
 
 # Copy sample data.
 cp -r res/Sample\ Images root
 cp bin/noodle.rom root/Noodle.uxn
 cp res/A\ Study\ in\ Scarlet.txt root
+cp res/Theme\ Source.dat root/Theme.designer
 
 # Build the system.
 ./start.sh build-optimised
