@@ -3,7 +3,7 @@ set -eux
 
 # TODO:
 # More sample content.
-# Ports: Mesa (and object viewer), Bochs (needs libstdc++), ffmpeg.
+# Ports: Mesa (and object viewer), ffmpeg.
 
 # Get the source.
 git clone --depth=1 https://gitlab.com/nakst/essence.git
@@ -17,6 +17,7 @@ echo "automated_build=1"                               >> bin/build_config.ini
 echo "Flag.DEBUG_BUILD=0"                              >> bin/config.ini
 echo "Flag.ENABLE_POSIX_SUBSYSTEM=1"                   >> bin/config.ini
 echo "General.wallpaper=0:/Sample Images/Abstract.jpg" >> bin/config.ini
+echo "General.window_color=5"                          >> bin/config.ini
 
 # Setup toolchain.
 ./start.sh get-source prefix https://github.com/nakst/build-gcc-x86_64-essence/releases/download/gcc-v11.1.0/out.tar.xz
@@ -28,6 +29,7 @@ echo "General.wallpaper=0:/Sample Images/Abstract.jpg" >> bin/config.ini
 ./start.sh build-port busybox > /dev/null
 ./start.sh build-port uxn     > /dev/null
 ./start.sh build-port gcc     > /dev/null
+./start.sh build-port bochs   > /dev/null
 
 # Copy sample data.
 cp -r res/Sample\ Images root
