@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
-    timeout-minutes: 60
+    timeout-minutes: 120
     steps:
 
       - name: checkout
@@ -54,4 +54,15 @@ jobs:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_path: ./${{ steps.build.outputs.OUTPUT_BINARY }}
           asset_name: ${{ steps.build.outputs.OUTPUT_BINARY }}
+          asset_content_type: application/x-compressed
+
+      - name: upload_debug_info
+        id: upload_debug_info
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./${{ steps.build.outputs.DEBUG_OUTPUT_BINARY }}
+          asset_name: ${{ steps.build.outputs.DEBUG_OUTPUT_BINARY }}
           asset_content_type: application/x-compressed

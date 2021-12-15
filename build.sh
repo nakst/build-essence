@@ -51,10 +51,18 @@ echo "ports/bochs/bochs.ini"      >> bin/extra_applications.ini
 
 # Compress result.
 cd ..
-xz -z essence/bin/drive
-mv essence/bin/drive.xz .
+mv essence/bin/drive .
+tar -cJf drive.tar.xz drive
+mkdir -p debug_info
+cp essence/bin/Kernel debug_info
+cp essence/bin/Desktop debug_info
+cp essence/bin/File\ Manager debug_info
+cp essence/bin/build.ini debug_info
+echo $COMMIT > debug_info/commit.txt
+tar -cJf debug_info.tar.xz debug_info
 
 # Set outputs for workflow.
-echo "::set-output name=OUTPUT_BINARY::drive.xz"
+echo "::set-output name=OUTPUT_BINARY::drive.tar.xz"
+echo "::set-output name=DEBUG_OUTPUT_BINARY::debug_info.tar.xz"
 echo "::set-output name=RELEASE_NAME::essence-${COMMIT}"
 echo "::set-output name=COMMIT::${COMMIT}"
