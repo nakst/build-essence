@@ -2,8 +2,9 @@
 set -eux
 
 # TODO:
-# More sample content.
-# Ports: Mesa (and object viewer), ffmpeg.
+# Copy the source onto the drive for self hosting.
+# Producing installer images (including for real hardware).
+# Mesa and object viewer port.
 
 # Get the source.
 git clone --depth=1 https://gitlab.com/nakst/essence.git
@@ -30,12 +31,14 @@ echo "General.window_color=5"                          >> bin/config.ini
 ./start.sh build-port uxn     > /dev/null
 ./start.sh build-port gcc     > /dev/null
 ./start.sh build-port bochs   > /dev/null
+./start.sh build-port ffmpeg  > /dev/null
 
-# Copy sample data.
+# Copy sample files.
 cp -r res/Sample\ Images root
 cp bin/noodle.rom root/Noodle.uxn
 cp res/A\ Study\ in\ Scarlet.txt root
 cp res/Theme\ Source.dat root/Theme.designer
+cp res/Flip.* root
 
 # Enable extra applications.
 echo "apps/samples/list.ini"      >> bin/extra_applications.ini
