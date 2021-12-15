@@ -3,8 +3,7 @@ set -eux
 
 # TODO:
 # More sample content.
-# Identifying errors.
-# Mesa (and object viewer), Bochs ports (needs libstdc++), ffmpeg, GCC.
+# Ports: Mesa (and object viewer), Bochs (needs libstdc++), ffmpeg.
 
 # Get the source.
 git clone --depth=1 https://gitlab.com/nakst/essence.git
@@ -28,6 +27,7 @@ echo "General.wallpaper=0:/Sample Images/Abstract.jpg" >> bin/config.ini
 ./start.sh build-port nasm    > /dev/null
 ./start.sh build-port busybox > /dev/null
 ./start.sh build-port uxn     > /dev/null
+./start.sh build-port gcc     > /dev/null
 
 # Copy sample data.
 cp -r res/Sample\ Images root
