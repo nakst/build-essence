@@ -13,12 +13,12 @@ COMMIT=`git log | head -n 1 | cut -b 8-14`
 
 # Setup config files.
 mkdir -p bin root
-echo "accepted_license=1"                              >> bin/build_config.ini
-echo "automated_build=1"                               >> bin/build_config.ini
-echo "Flag.DEBUG_BUILD=0"                              >> bin/config.ini
-echo "Flag.ENABLE_POSIX_SUBSYSTEM=1"                   >> bin/config.ini
-echo "General.wallpaper=0:/Sample Images/Abstract.jpg" >> bin/config.ini
-echo "General.window_color=5"                          >> bin/config.ini
+echo "accepted_license=1"                             >> bin/build_config.ini
+echo "automated_build=1"                              >> bin/build_config.ini
+echo "Flag.DEBUG_BUILD=0"                             >> bin/config.ini
+echo "Flag.ENABLE_POSIX_SUBSYSTEM=1"                  >> bin/config.ini
+echo "General.wallpaper=0:/Demo Content/Abstract.jpg" >> bin/config.ini
+echo "General.window_color=5"                         >> bin/config.ini
 
 # Setup toolchain.
 ./start.sh get-source prefix https://github.com/nakst/build-gcc-x86_64-essence/releases/download/gcc-v11.1.0/out.tar.xz
@@ -34,11 +34,12 @@ echo "General.window_color=5"                          >> bin/config.ini
 ./start.sh build-port ffmpeg  > /dev/null
 
 # Copy sample files.
-cp -r res/Sample\ Images root
-cp bin/noodle.rom root/Noodle.uxn
-cp res/A\ Study\ in\ Scarlet.txt root
-cp res/Theme\ Source.dat root/Theme.designer
-cp res/Flip.* root
+mkdir -p root/Demo\ Content
+cp -r res/Sample\ Images/* root/Demo\ Content/
+cp bin/noodle.rom root/Demo\ Content/Noodle.uxn
+cp res/A\ Study\ in\ Scarlet.txt root/Demo\ Content/
+cp res/Theme\ Source.dat root/Demo\ Content/Theme.designer
+cp res/Flip.* root/Demo\ Content/
 
 # Enable extra applications.
 echo "apps/samples/list.ini"      >> bin/extra_applications.ini
