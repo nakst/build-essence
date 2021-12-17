@@ -28,6 +28,7 @@ jobs:
             nasm            \
             meson           \
             qemu            \
+            qemu-utils      \
             gcc             \
             g++
 
