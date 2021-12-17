@@ -55,12 +55,11 @@ echo "ports/bochs/bochs.ini"      >> bin/extra_applications.ini
 cd ..
 
 # Create a virtual machine file.
-mkdir -p ova/Essence
-qemu-img convert -f raw essence/bin/drive -O vmdk ova/Essence/Essence-disk001.vmdk
-python genovf.py > ova/Essence/Essence.ovf
+mkdir -p ova
+qemu-img convert -f raw essence/bin/drive -O vmdk -o adapter_type=lsilogic,subformat=streamOptimized,compat6 ova/Essence-disk001.vmdk
+python genovf.py > ova/Essence.ovf
 cd ova
-tar -cf Essence.ova Essence/
-rm -rf Essence/
+tar -cf Essence.ova Essence.ovf Essence-disk001.vmdk
 mv Essence.ova ..
 cd ..
 
