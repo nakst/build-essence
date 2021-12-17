@@ -31,15 +31,17 @@ echo "General.window_color=5"                         >> bin/config.ini
 ./start.sh build-port uxn     > /dev/null
 ./start.sh build-port bochs   > /dev/null
 ./start.sh build-port ffmpeg  > /dev/null
-# ./start.sh build-port gcc     > /dev/null
+./start.sh build-port gcc     > /dev/null
 
-# Copy sample files.
+# Copy a few sample files.
 mkdir -p root/Demo\ Content
 cp -r res/Sample\ Images/* root/Demo\ Content/
 cp bin/noodle.rom root/Demo\ Content/Noodle.uxn
 cp res/A\ Study\ in\ Scarlet.txt root/Demo\ Content/
 cp res/Theme\ Source.dat root/Demo\ Content/Theme.designer
 cp res/Flip.* root/Demo\ Content/
+cp res/Fonts/Atkinson\ Hyperlegible\ Regular.ttf root/Demo\ Content/
+cp help/API\ Documentation.md root/Demo\ Content/
 
 # Enable extra applications.
 echo "apps/samples/list.ini"      >> bin/extra_applications.ini
