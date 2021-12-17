@@ -52,11 +52,22 @@ echo "ports/bochs/bochs.ini"      >> bin/extra_applications.ini
 
 # Build the system.
 ./start.sh build-optimised
-
-# Compress result.
 cd ..
+
+# Create a virtual machine file.
+mkdir -p ova/Essence
+qemu-img convert -f raw essence/bin/drive -O vmdk ova/Essence/Essence-disk001.vmdk
+python genovf.py > ova/Essence/Essence.ovf
+cd ova
+tar -cf Essence.ova Essence/
+rm -rf Essence/
+mv Essence.ova ..
+cd ..
+
+# Compress the result.
 mv essence/bin/drive .
 tar -cJf drive.tar.xz drive
+tar -cJf Essence.ova.tar.xz Essence.ova
 mkdir -p debug_info
 cp essence/bin/Kernel debug_info
 cp essence/bin/Desktop debug_info
@@ -68,5 +79,6 @@ tar -cJf debug_info.tar.xz debug_info
 # Set outputs for workflow.
 echo "::set-output name=OUTPUT_BINARY::drive.tar.xz"
 echo "::set-output name=DEBUG_OUTPUT_BINARY::debug_info.tar.xz"
+echo "::set-output name=OVA_OUTPUT_BINARY::Essence.ova.tar.xz"
 echo "::set-output name=RELEASE_NAME::essence-${COMMIT}"
 echo "::set-output name=COMMIT::${COMMIT}"

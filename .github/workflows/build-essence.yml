@@ -27,6 +27,7 @@ jobs:
             m4              \
             nasm            \
             meson           \
+            qemu            \
             gcc             \
             g++
 
@@ -54,6 +55,17 @@ jobs:
           upload_url: ${{ steps.release.outputs.upload_url }}
           asset_path: ./${{ steps.build.outputs.OUTPUT_BINARY }}
           asset_name: ${{ steps.build.outputs.OUTPUT_BINARY }}
+          asset_content_type: application/x-compressed
+
+      - name: upload_ova
+        id: upload_ova
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./${{ steps.build.outputs.OVA_OUTPUT_BINARY }}
+          asset_name: ${{ steps.build.outputs.OVA_OUTPUT_BINARY }}
           asset_content_type: application/x-compressed
 
       - name: upload_debug_info
