@@ -29,9 +29,9 @@ echo "General.window_color=5"                         >> bin/config.ini
 ./start.sh build-port nasm    > /dev/null
 ./start.sh build-port busybox > /dev/null
 ./start.sh build-port uxn     > /dev/null
-./start.sh build-port gcc     > /dev/null
 ./start.sh build-port bochs   > /dev/null
 ./start.sh build-port ffmpeg  > /dev/null
+# ./start.sh build-port gcc     > /dev/null
 
 # Copy sample files.
 mkdir -p root/Demo\ Content
@@ -67,13 +67,9 @@ cd ..
 mv essence/bin/drive .
 tar -cJf drive.tar.xz drive
 tar -cJf Essence.ova.tar.xz Essence.ova
-mkdir -p debug_info
-cp essence/bin/Kernel debug_info
-cp essence/bin/Desktop debug_info
-cp essence/bin/File\ Manager debug_info
-cp essence/bin/build.ini debug_info
-echo $COMMIT > debug_info/commit.txt
-tar -cJf debug_info.tar.xz debug_info
+echo $COMMIT > essence/bin/commit.txt
+rm -rf essence/cross
+tar -cJf debug_info.tar.xz essence
 
 # Set outputs for workflow.
 echo "::set-output name=OUTPUT_BINARY::drive.tar.xz"
