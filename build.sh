@@ -11,6 +11,9 @@ git clone --depth=1 https://gitlab.com/nakst/essence.git
 cd essence
 COMMIT=`git log | head -n 1 | cut -b 8-14`
 
+# If this commit has already been built, exit.
+curl -sfLo nul https://api.github.com/repos/nakst/build-essence/releases/tags/essence-${COMMIT} && exit
+
 # Setup config files.
 mkdir -p bin root
 echo "accepted_license=1"                             >> bin/build_config.ini
