@@ -73,7 +73,7 @@ mv essence/bin/drive .
 tar -cJf drive.tar.xz drive
 tar -cJf Essence.ova.tar.xz Essence.ova
 echo $COMMIT > essence/bin/commit.txt
-rm -rf essence/cross essence/.git
+rm -rf essence/cross essence/.git essence/bin/cache essence/bin/freetype essence/bin/harfbuzz essence/bin/musl essence/root/Applications/POSIX/lib
 tar -cJf debug_info.tar.xz essence
 
 # Set outputs for workflow.
