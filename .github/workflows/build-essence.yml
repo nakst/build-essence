@@ -2,9 +2,8 @@
 name: build-essence
 
 on:
-  push:
-    branches:
-      - main
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   build:
@@ -37,6 +36,7 @@ jobs:
         run: ./build.sh
         
       - name: release
+        if: steps.build.outputs.RELEASE_NAME != ''
         id: release
         uses: actions/create-release@v1
         env:
@@ -48,6 +48,7 @@ jobs:
             Essence built from commit ${{ steps.build.outputs.COMMIT }}.
 
       - name: upload
+        if: steps.build.outputs.RELEASE_NAME != ''
         id: upload
         uses: actions/upload-release-asset@v1
         env:
@@ -59,6 +60,7 @@ jobs:
           asset_content_type: application/x-compressed
 
       - name: upload_ova
+        if: steps.build.outputs.RELEASE_NAME != ''
         id: upload_ova
         uses: actions/upload-release-asset@v1
         env:
@@ -70,6 +72,7 @@ jobs:
           asset_content_type: application/x-compressed
 
       - name: upload_debug_info
+        if: steps.build.outputs.RELEASE_NAME != ''
         id: upload_debug_info
         uses: actions/upload-release-asset@v1
         env:
