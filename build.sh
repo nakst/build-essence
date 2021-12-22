@@ -24,7 +24,7 @@ echo "General.wallpaper=0:/Demo Content/Abstract.jpg" >> bin/config.ini
 echo "General.window_color=5"                         >> bin/config.ini
 
 # Setup toolchain.
-./start.sh get-source prefix https://github.com/nakst/build-gcc-x86_64-essence/releases/download/gcc-v11.1.0/out.tar.xz
+./start.sh get-source prefix https://github.com/nakst/build-gcc/releases/download/gcc-11.1.0/gcc-x86_64-essence.tar.xz
 ./start.sh setup-pre-built-toolchain
 ./start.sh build-optimised
 
