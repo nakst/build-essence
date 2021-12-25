@@ -26,6 +26,7 @@ jobs:
             patch           \
             make            \
             curl            \
+            ctags           \
             m4              \
             nasm            \
             meson           \
