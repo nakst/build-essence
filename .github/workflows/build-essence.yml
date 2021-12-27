@@ -30,7 +30,7 @@ jobs:
             m4              \
             nasm            \
             meson           \
-            ninja           \
+            ninja-build     \
             qemu            \
             qemu-utils      \
             gcc             \
