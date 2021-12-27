@@ -4,7 +4,6 @@ set -eux
 # TODO:
 # Copy the source onto the drive for self hosting.
 # Producing installer images (including for real hardware).
-# Mesa and object viewer port.
 
 # Get the source.
 git clone --depth=1 https://gitlab.com/nakst/essence.git
@@ -23,18 +22,11 @@ echo "Flag.ENABLE_POSIX_SUBSYSTEM=1"                  >> bin/config.ini
 echo "General.wallpaper=0:/Demo Content/Abstract.jpg" >> bin/config.ini
 echo "General.window_color=5"                         >> bin/config.ini
 
-# Setup toolchain.
+# Setup toolchain, build the system and ports.
 ./start.sh get-source prefix https://github.com/nakst/build-gcc/releases/download/gcc-11.1.0/gcc-x86_64-essence.tar.xz
 ./start.sh setup-pre-built-toolchain
 ./start.sh build-optimised
-
-# Build ports.
-./start.sh build-port nasm    > /dev/null
-./start.sh build-port busybox > /dev/null
-./start.sh build-port uxn     > /dev/null
-./start.sh build-port bochs   > /dev/null
-./start.sh build-port ffmpeg  > /dev/null
-./start.sh build-port gcc     > /dev/null
+./start.sh build-optional-ports > /dev/null
 
 # Copy a few sample files.
 mkdir -p root/Demo\ Content
@@ -43,6 +35,7 @@ cp bin/noodle.rom root/Demo\ Content/Noodle.uxn
 cp res/A\ Study\ in\ Scarlet.txt root/Demo\ Content/
 cp res/Theme\ Source.dat root/Demo\ Content/Theme.designer
 cp res/Flip.* root/Demo\ Content/
+cp res/Teapot.obj root/Demo\ Content/
 cp res/Fonts/Atkinson\ Hyperlegible\ Regular.ttf root/Demo\ Content/
 cp help/API\ Documentation.md root/Demo\ Content/
 
@@ -54,8 +47,9 @@ echo "apps/samples/converter.ini" >> bin/extra_applications.ini
 echo "util/designer2.ini"         >> bin/extra_applications.ini
 echo "ports/uxn/emulator.ini"     >> bin/extra_applications.ini
 echo "ports/bochs/bochs.ini"      >> bin/extra_applications.ini
+echo "ports/mesa/obj_viewer.ini"  >> bin/extra_applications.ini
 
-# Build the system.
+# Build the extra applications.
 ./start.sh build-optimised
 cd ..
 
