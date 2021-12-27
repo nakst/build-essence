@@ -26,8 +26,7 @@ echo "General.window_color=5"                         >> bin/config.ini
 ./start.sh get-source prefix https://github.com/nakst/build-gcc/releases/download/gcc-11.1.0/gcc-x86_64-essence.tar.xz
 ./start.sh setup-pre-built-toolchain
 ./start.sh build-optimised
-# ./start.sh build-optional-ports > /dev/null
-./start.sh build-port mesa
+./start.sh build-optional-ports > /dev/null
 
 # Copy a few sample files.
 mkdir -p root/Demo\ Content
