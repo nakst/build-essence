@@ -35,6 +35,7 @@ jobs:
             qemu-utils      \
             gcc             \
             g++
+          pip install mako
 
       - name: build
         id: build
