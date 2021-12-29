@@ -59,12 +59,11 @@ qemu-img convert -f raw essence/bin/drive -O vmdk -o adapter_type=lsilogic,subfo
 python genovf.py > ova/Essence.ovf
 cd ova
 tar -cf Essence.ova Essence.ovf Essence-disk001.vmdk
-mv Essence.ova ..
 cd ..
 
 # Compress the result.
 mkdir Essence
-mv Essence.ova Essence/
+mv ova/Essence.ova Essence/
 mv essence/bin/drive Essence/
 tar -cJf Essence.tar.xz Essence/
 echo $COMMIT > essence/bin/commit.txt
