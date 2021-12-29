@@ -63,16 +63,16 @@ mv Essence.ova ..
 cd ..
 
 # Compress the result.
-mv essence/bin/drive .
-tar -cJf drive.tar.xz drive
-tar -cJf Essence.ova.tar.xz Essence.ova
+mkdir Essence
+mv Essence.ova Essence/
+mv essence/bin/drive Essence/
+tar -cJf Essence.tar.xz Essence/
 echo $COMMIT > essence/bin/commit.txt
 rm -rf essence/cross essence/.git essence/bin/cache essence/bin/freetype essence/bin/harfbuzz essence/bin/musl essence/root/Applications/POSIX/lib
 tar -cJf debug_info.tar.xz essence
 
 # Set outputs for workflow.
-echo "::set-output name=OUTPUT_BINARY::drive.tar.xz"
+echo "::set-output name=OUTPUT_BINARY::Essence.tar.xz"
 echo "::set-output name=DEBUG_OUTPUT_BINARY::debug_info.tar.xz"
-echo "::set-output name=OVA_OUTPUT_BINARY::Essence.ova.tar.xz"
-echo "::set-output name=RELEASE_NAME::essence-${COMMIT}"
+echo "::set-output name=RELEASE_NAME::essence-`date +%Y_%m_%d`-${COMMIT}"
 echo "::set-output name=COMMIT::${COMMIT}"
