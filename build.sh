@@ -36,12 +36,13 @@ cp res/Flip.* root/Demo\ Content/
 cp res/Teapot.obj root/Demo\ Content/
 cp res/Fonts/Atkinson\ Hyperlegible\ Regular.ttf root/Demo\ Content/
 
+# Copy API samples.
+mkdir -p root/API\ Samples
+python ../genapisamples.py
+
 # Enable extra applications.
-echo "apps/samples/list.ini"      >> bin/extra_applications.ini
-echo "apps/samples/hello.ini"     >> bin/extra_applications.ini
-echo "apps/samples/game_loop.ini" >> bin/extra_applications.ini
-echo "apps/samples/converter.ini" >> bin/extra_applications.ini
 echo "util/designer2.ini"         >> bin/extra_applications.ini
+echo "util/build_core.ini"        >> bin/extra_applications.ini
 echo "ports/uxn/emulator.ini"     >> bin/extra_applications.ini
 echo "ports/bochs/bochs.ini"      >> bin/extra_applications.ini
 echo "ports/mesa/obj_viewer.ini"  >> bin/extra_applications.ini
