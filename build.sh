@@ -59,8 +59,39 @@ cd ova
 tar -cf Essence.ova Essence.ovf Essence-disk001.vmdk
 cd ..
 
+# Copy licenses.
+mkdir -p Essence Essence/Licenses
+cp essence/LICENSE.md Essence/Licenses/Essence\ License.txt
+cp essence/util/nanosvg.h Essence/Licenses/
+cp essence/util/hsluv.h Essence/Licenses/
+cp essence/util/stb_*.h Essence/Licenses/
+cp essence/shared/stb_*.h Essence/Licenses/
+cp essence/res/Fonts/Hack\ License.md Essence/Licenses/
+cp essence/res/Fonts/Inter\ License.txt Essence/Licenses/
+cp essence/res/Fonts/Atkinson\ Hyperlegible\ License.txt Essence/Licenses/
+cp essence/res/Fonts/OpenDyslexic\ License.txt Essence/Licenses/
+cp essence/res/elementary\ Icons\ License.txt Essence/Licenses/
+cp essence/res/Sample\ Images/Licenses.txt Essence/Licenses/Sample\ Images.txt
+cp essence/res/Keyboard\ Layouts/License.txt Essence/Licenses/Keyboard\ Layouts.txt
+cp essence/ports/acpica/licensing.txt Essence/Licenses/ACPICA.txt
+cp essence/ports/bochs/COPYING Essence/Licenses/Bochs.txt
+cp essence/ports/efitoolkit/LICENSE Essence/Licenses/EFI.txt
+cp essence/ports/freetype/FTL.TXT Essence/Licenses/FreeType.txt
+cp essence/ports/harfbuzz/LICENSE Essence/Licenses/HarfBuzz.txt
+cp essence/ports/md4c/LICENSE.md Essence/Licenses/Md4c.txt
+cp essence/ports/musl/COPYRIGHT Essence/Licenses/Musl.txt
+cp essence/ports/uxn/LICENSE Essence/Licenses/Uxn.txt
+cp essence/bin/BusyBox\ License.txt Essence/Licenses/BusyBox.txt
+cp -r essence/bin/FFmpeg\ License Essence/Licenses/
+cp essence/bin/Mesa\ License.html Essence/Licenses/Mesa.html
+cp essence/bin/Nasm\ License.txt Essence/Licenses/Nasm.txt
+cp essence/bin/GCC\ License.txt Essence/Licenses/GCC.txt
+cp essence/bin/Binutils\ License.txt Essence/Licenses/Binutils.txt
+cp essence/bin/GMP\ License.txt Essence/Licenses/GMP.txt
+cp essence/bin/MPFR\ License.txt Essence/Licenses/GMPF.txt
+cp essence/bin/MPC\ License.txt Essence/Licenses/MPC.txt
+
 # Compress the result.
-mkdir Essence
 mv ova/Essence.ova Essence/
 mv essence/bin/drive Essence/
 tar -cJf Essence.tar.xz Essence/
