@@ -1,0 +1,23 @@
+
+name: build-essence-mac
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+    runs-on: macos-11
+    timeout-minutes: 120
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@v2          
+
+      - name: install dependencies
+        run: brew install gcc@11 nasm ctags xz
+
+      - name: build
+        id: build
+        run: ./build_minimal.sh
+        
