@@ -1,0 +1,54 @@
+
+name: test-essence
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 120
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@v2          
+
+      - name: install dependencies
+        run: |
+          sudo apt-get install --no-install-recommends -y \
+            ca-certificates \
+            xz-utils        \
+            texinfo         \
+            patch           \
+            make            \
+            curl            \
+            ctags           \
+            m4              \
+            nasm            \
+            meson           \
+            ninja-build     \
+            qemu            \
+            qemu-utils      \
+            qemu-system-x86 \
+            gcc             \
+            g++
+          pip install mako
+
+      - name: build
+        id: build
+        run: chmod +x run_tests.sh && ./run_tests.sh
+        
+      - name: upload
+        id: upload       
+        uses: actions/upload-artifact@v2
+        with:
+          name: debug-info
+          path: essence
+          
+      - name: check
+        id: check
+        run: "test ! -s essence/bin/Logs/Test\\ Failures.txt"
