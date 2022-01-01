@@ -3,8 +3,6 @@ set -eux
 
 git clone --depth=1 https://gitlab.com/nakst/essence.git
 cd essence
-COMMIT=`git log | head -n 1 | cut -b 8-14`
-echo "::set-output name=RELEASE_NAME::tests-`date +%Y_%m_%d`-${COMMIT}"
 
 mkdir -p bin
 echo "accepted_license=1" >> bin/build_config.ini
@@ -14,5 +12,5 @@ echo "desktop/api_tests.ini" >> bin/extra_applications.ini
 ./start.sh run-tests
 
 cd ..
-echo $COMMIT > essence/bin/commit.txt
+echo `git log | head -n 1 | cut -b 8-14` > essence/bin/commit.txt
 rm -rf essence/cross essence/.git essence/bin/cache essence/bin/freetype essence/bin/harfbuzz essence/bin/musl essence/root/Applications/POSIX/lib essence/bin/drive
