@@ -1,0 +1,42 @@
+
+name: build-minimal-essence
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 120
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@v2          
+
+      - name: install dependencies
+        run: |
+          sudo apt-get install --no-install-recommends -y \
+            ca-certificates \
+            xz-utils        \
+            texinfo         \
+            patch           \
+            make            \
+            curl            \
+            ctags           \
+            m4              \
+            nasm            \
+            gcc             \
+            g++
+
+      - name: build
+        id: build
+        run: chmod +x build_minimal.sh && ./build_minimal.sh
+        
+      - name: upload
+        id: upload       
+        uses: actions/upload-artifact@v2
+        with:
+          name: drive
+          path: essence/bin/drive
