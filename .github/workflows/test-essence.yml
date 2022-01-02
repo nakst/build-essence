@@ -37,7 +37,7 @@ jobs:
 
       - name: build
         id: build
-        run: chmod +x run_tests.sh && ./run_tests.sh
+        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && essence/util/automation/run_tests.sh
         
       - name: upload
         id: upload       
