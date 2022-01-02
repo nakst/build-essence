@@ -1,7 +1,7 @@
 
 name: build-minimal-essence
 
-on:
+on: |
   schedule:
     - cron: "0 0 * * *"
   push
