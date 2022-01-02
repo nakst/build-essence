@@ -1,10 +1,11 @@
 
 name: build-minimal-essence
 
-on: |
-  schedule:
-    - cron: "0 0 * * *"
+on: 
   push
+#  schedule:
+#    - cron: "0 0 * * *"
+  
 
 jobs:
   build:
