@@ -1,6 +1,9 @@
 #!/bin/bash
 set -eux
 
+# TODO:
+# Run stress tests.
+
 git clone --depth=1 https://gitlab.com/nakst/essence.git
 cd essence
 
