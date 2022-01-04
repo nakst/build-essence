@@ -48,7 +48,9 @@ jobs:
           tag_name: ${{ steps.build.outputs.RELEASE_NAME }}
           release_name: ${{ steps.build.outputs.RELEASE_NAME }}
           body: |
-            Essence automatically built from commit ${{ steps.build.outputs.COMMIT }}. Download and extract `Essence.tar.xz`. If you are using VirtualBox, import `Essence.ova`. If you are using Qemu, run `qemu-kvm -drive file=drive,format=raw -m 2048 -smp 2 || qemu-system-x86_64 -enable-kvm -drive file=drive,format=raw -m 2048 -smp 2`.
+            Essence automatically built from commit ${{ steps.build.outputs.COMMIT }}. 
+            Download and extract `Essence.tar.xz`. If you are using VirtualBox, import `Essence.ova`. 
+            If you are using Qemu, run `qemu-kvm -drive file=drive,format=raw -m 2048 -smp 2 -serial /dev/stdout >> log.txt || qemu-system-x86_64 -enable-kvm -drive file=drive,format=raw -m 2048 -smp 2 -serial /dev/stdout >> log.txt`.
 
       - name: upload
         if: steps.build.outputs.RELEASE_NAME != ''
