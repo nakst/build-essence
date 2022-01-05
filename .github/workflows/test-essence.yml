@@ -2,8 +2,9 @@
 name: test-essence
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
+  push
+#  schedule:
+#    - cron: "0 0 * * *"
 
 jobs:
   build:
@@ -28,6 +29,7 @@ jobs:
             nasm            \
             meson           \
             ninja-build     \
+            libharfbuzz-dev \
             qemu            \
             qemu-utils      \
             qemu-system-x86 \
