@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2          
 
       - name: install dependencies
-        run: brew install gcc@11 nasm ctags xz
+        run: brew install gcc@11 nasm ctags xz coreutils
 
       - name: build
         id: build
