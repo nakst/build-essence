@@ -18,6 +18,10 @@ jobs:
       - name: build
         id: build
         run: git clone --depth=1 https://gitlab.com/nakst/essence.git && essence/util/automation/build_default.sh
+      
+      - name: cleanup
+        id: cleanup
+        run: rm -rf essence/.git
         
       - name: upload
         id: upload       
