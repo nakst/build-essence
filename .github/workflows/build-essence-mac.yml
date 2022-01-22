@@ -18,3 +18,10 @@ jobs:
       - name: build
         id: build
         run: git clone --depth=1 https://gitlab.com/nakst/essence.git && essence/util/automation/build_default.sh
+        
+      - name: upload
+        id: upload       
+        uses: actions/upload-artifact@v2
+        with:
+          name: debug-info
+          path: essence
