@@ -1,0 +1,20 @@
+name: build-essence-mac
+
+on:
+  push
+
+jobs:
+  build:
+    runs-on: macos-latest
+    timeout-minutes: 120
+    steps:
+
+      - name: checkout
+        uses: actions/checkout@v2          
+
+      - name: install dependencies
+        run: sudo brew install gcc@11 nasm ctags xz
+
+      - name: build
+        id: build
+        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && essence/util/automation/build_default.sh
