@@ -13,19 +13,8 @@ jobs:
         uses: actions/checkout@v2          
 
       - name: install dependencies
-        run: brew install gcc@11 nasm ctags xz coreutils
+        run: brew install gcc@11 nasm ctags xz coreutils gnu-sed
 
       - name: build
         id: build
         run: git clone --depth=1 https://gitlab.com/nakst/essence.git && essence/util/automation/build_default.sh
-      
-      - name: cleanup
-        id: cleanup
-        run: rm -rf essence/.git
-        
-      - name: upload
-        id: upload       
-        uses: actions/upload-artifact@v2
-        with:
-          name: debug-info
-          path: essence
