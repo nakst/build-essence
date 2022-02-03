@@ -31,4 +31,5 @@ jobs:
           pip install mako
       - name: build
         id: build
-        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && essence/util/automation/build.sh
+        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationBuild util/start.script
+
