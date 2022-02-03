@@ -16,8 +16,8 @@ jobs:
         run: brew install gcc@11 nasm ctags xz coreutils gnu-sed
       - name: build
         id: build
-        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && essence/util/automation/build_default.sh
-
+        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationBuildDefault util/start.script
+        
   run-tests:
     runs-on: ubuntu-20.04
     timeout-minutes: 120
@@ -32,7 +32,7 @@ jobs:
           pip install mako
       - name: build
         id: build
-        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && essence/util/automation/run_tests.sh
+        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationRunTests util/start.script
       - name: upload
         id: upload       
         uses: actions/upload-artifact@v2
@@ -54,7 +54,7 @@ jobs:
           sudo apt-get install --no-install-recommends -y ca-certificates xz-utils texinfo patch make curl ctags m4 nasm gcc g++
       - name: build
         id: build
-        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && essence/util/automation/build_minimal.sh
+        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationBuildMinimal util/start.script
       - name: upload
         id: upload       
         uses: actions/upload-artifact@v2
@@ -76,7 +76,17 @@ jobs:
           pip install mako
       - name: build
         id: build
-        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && essence/util/automation/build.sh
+        run: |
+          git clone --depth=1 https://gitlab.com/nakst/essence.git 
+          cd essence 
+          mkdir -p bin
+          gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationBuild util/start.script
+          cd ..
+          COMMIT=`git log | head -n 1 | cut -b 8-14`
+          echo "::set-output name=OUTPUT_BINARY::Essence.tar.xz"
+          echo "::set-output name=DEBUG_OUTPUT_BINARY::debug_info.tar.xz"
+          echo "::set-output name=RELEASE_NAME::essence-`date +%Y_%m_%d`-${COMMIT}"
+          echo "::set-output name=COMMIT::${COMMIT}"
       - name: release
         if: steps.build.outputs.RELEASE_NAME != ''
         id: release
