@@ -81,8 +81,8 @@ jobs:
           cd essence 
           mkdir -p bin
           gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationBuild util/start.script
-          cd ..
           COMMIT=`git log | head -n 1 | cut -b 8-14`
+          cd ..
           echo "::set-output name=OUTPUT_BINARY::Essence.tar.xz"
           echo "::set-output name=DEBUG_OUTPUT_BINARY::debug_info.tar.xz"
           echo "::set-output name=RELEASE_NAME::essence-`date +%Y_%m_%d`-${COMMIT}"
