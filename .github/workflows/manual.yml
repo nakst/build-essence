@@ -33,3 +33,28 @@ jobs:
         id: build
         run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationBuild util/start.script
 
+  run-tests:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 120
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: install dependencies
+        run: |
+          sudo apt-get update  
+          sudo apt-get install --no-install-recommends -y ca-certificates xz-utils texinfo patch make curl \
+            ctags m4 nasm meson ninja-build libharfbuzz-dev qemu qemu-utils qemu-system-x86 gcc g++
+          pip install mako
+      - name: build
+        id: build
+        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationRunTests util/start.script
+      - name: upload
+        id: upload       
+        uses: actions/upload-artifact@v2
+        with:
+          name: debug-info
+          path: essence
+      - name: check
+        id: check
+        run: "test ! -s essence/bin/Logs/Test\\ Failures.txt"
+        
