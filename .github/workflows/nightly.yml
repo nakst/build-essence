@@ -16,7 +16,7 @@ jobs:
         run: brew install gcc@11 nasm ctags xz coreutils gnu-sed
       - name: build
         id: build
-        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationBuildDefault util/start.script
+        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread -ldl && bin/script --start=AutomationBuildDefault util/start.script
         
   run-tests:
     runs-on: ubuntu-20.04
@@ -32,7 +32,7 @@ jobs:
           pip install mako
       - name: build
         id: build
-        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationRunTests util/start.script
+        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread -ldl && bin/script --start=AutomationRunTests util/start.script
       - name: upload
         id: upload       
         uses: actions/upload-artifact@v2
@@ -54,7 +54,7 @@ jobs:
           sudo apt-get install --no-install-recommends -y ca-certificates xz-utils texinfo patch make curl ctags m4 nasm gcc g++
       - name: build
         id: build
-        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationBuildMinimal util/start.script
+        run: git clone --depth=1 https://gitlab.com/nakst/essence.git && cd essence && mkdir -p bin && gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread -ldl && bin/script --start=AutomationBuildMinimal util/start.script
       - name: upload
         id: upload       
         uses: actions/upload-artifact@v2
@@ -80,7 +80,7 @@ jobs:
           git clone --depth=1 https://gitlab.com/nakst/essence.git 
           cd essence 
           mkdir -p bin
-          gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread && bin/script --start=AutomationBuild util/start.script
+          gcc -o bin/script util/script.c -g -Wall -Wextra -O2 -pthread -ldl && bin/script --start=AutomationBuild util/start.script
           COMMIT=`git log | head -n 1 | cut -b 8-14`
           cd ..
           echo "::set-output name=OUTPUT_BINARY::Essence.tar.xz"
