@@ -27,7 +27,7 @@ jobs:
         run: |
           sudo apt-get update  
           sudo apt-get install --no-install-recommends -y ca-certificates xz-utils texinfo patch make curl \
-            ctags m4 nasm meson ninja-build libharfbuzz-dev qemu qemu-utils qemu-system-x86 gcc g++
+            ctags m4 nasm meson ninja-build libharfbuzz-dev qemu qemu-utils qemu-system-x86 gcc g++ libmpc-dev libmpfr-dev libgmp-dev
           pip install mako
       - name: build
         id: build
@@ -43,7 +43,7 @@ jobs:
         run: |
           sudo apt-get update  
           sudo apt-get install --no-install-recommends -y ca-certificates xz-utils texinfo patch make curl \
-            ctags m4 nasm meson ninja-build libharfbuzz-dev qemu qemu-utils qemu-system-x86 gcc g++
+            ctags m4 nasm meson ninja-build libharfbuzz-dev qemu qemu-utils qemu-system-x86 gcc g++ libmpc-dev libmpfr-dev libgmp-dev
           pip install mako
       - name: build
         id: build
