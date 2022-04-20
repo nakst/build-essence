@@ -1,8 +1,9 @@
 name: nightly
 
 on:
-  schedule:
-    - cron: "0 6 * * *"
+  workflow_run
+  #schedule:
+  #  - cron: "0 6 * * *"
 
 jobs:
 
